@@ -1,20 +1,38 @@
 [
   {
+    "location": "Clifton Park",
+    "date": "2013-06-10",
+    "time": 1450,
+    "distance": 3.1
+  },
+  {
+    "location": "Upper West Side",
+    "date": "2013-06-15",
+    "time": 1636,
+    "distance": 3.9
+  },
+  {
     "location": "Central Park",
-    "date": "2013-07-04",
-    "totalTime": 360,
+    "date": "2013-06-17",
+    "time": 3600,
     "distance": 6.0
   },
   {
+    "location": "Riverside Park",
+    "date": "2013-06-19",
+    "time": 6000,
+    "distance": 10.0
+  },
+  {
    "location": "Central Park",
-   "date": "2013-07-06",
-   "totalTime": 200,
+   "date": "2013-06-21",
+   "time": 2400,
    "distance": 4.0
   },
   {
     "location": "Prospect Park",
-    "date": "2013-07-15",
-    "totalTime": 170,
+    "date": "2013-07-05",
+    "time": 1500,
     "distance": 3.0
   }
 ]
