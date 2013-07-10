@@ -78,6 +78,14 @@
                   <th>Distance</th>
                   <th>Actions</th>
                 </tr>
+                <tr id="addworkout">
+                  <td>Add New Workout</td>
+                  <td><input type="text" value="" name="location"></td>
+                  <td><input type="text" value="" name="date"></td>
+                  <td><input type="text" value="" name="time"></td>
+                  <td><input type="text" value="" name="distance"></td>
+                  <td><input type="button" value="Add" name="submit" id="submit"></td>
+                </tr>
               </thead>
               <tbody id="log">
 
@@ -104,7 +112,7 @@
         <td><%= date %></td>
         <td><%= time %></td>
         <td><%= distance %></td>
-        <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+        <td><a class="edit" href="#">Edit</a> | <a class="delete" href="#">Delete</a></td>
 
     </script>
 

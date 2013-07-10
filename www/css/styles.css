@@ -1,2 +1,4 @@
 /*-- Application stylesheets. -----------------------------------------------*/
 @media screen and (min-width: 980px) { body { padding-top: 60px; } }
+
+table input { width: 100%; box-sizing: border-box; }
