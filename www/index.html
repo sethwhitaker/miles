@@ -79,12 +79,7 @@
                   <th>Actions</th>
                 </tr>
                 <tr id="addworkout">
-                  <td>Add New Workout</td>
-                  <td><input type="text" value="" name="location"></td>
-                  <td><input type="text" value="" name="date"></td>
-                  <td><input type="text" value="" name="time"></td>
-                  <td><input type="text" value="" name="distance"></td>
-                  <td><input type="button" value="Add" name="submit" id="submit"></td>
+
                 </tr>
               </thead>
               <tbody id="log">
@@ -105,9 +100,26 @@
     </div> <!-- /container -->
 
 
+    <script id="workoutEditTemplate" type="text/template">
+      <td><%=title%></td>
+      <td><input type="text" value="<%= (location)? location : "" %>" placeholder="Location" name="location"></td>
+      <td><input type="text" value="<%= (date)? date : "" %>" placeholder="Date" name="date"></td>
+      <td><input type="text" value="<%= (time)? time: "" %>" placeholder="Time" name="time"></td>
+      <td><input type="text" value="<%= (distance)? distance : "" %>" placeholder="Distance" name="distance"></td>
+      <td>
+        <% if(add == true){ %>
+          <button class="add">Add</button>
+        <%}%>
+        <% if(edit == true){  %>
+          <button class="update">Update</button>
+          <button class="cancel">Cancel</button>
+        <% } %>
+      </td>
+
+    </script>
     <script id="workoutTemplate" type="text/template">
 
-        <td><a href="#"><%= location %> <%= distance %>  Miler</a></td>
+        <td><a href="#"><%= title %> </a></td>
         <td><%= location %></td>
         <td><%= date %></td>
         <td><%= time %></td>
@@ -115,6 +127,8 @@
         <td><a class="edit" href="#">Edit</a> | <a class="delete" href="#">Delete</a></td>
 
     </script>
+
+
 
 
 

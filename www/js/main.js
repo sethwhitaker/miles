@@ -44,29 +44,59 @@ milers.Collections.WorkoutsCollection = Backbone.Collection.extend({
   model: milers.Models.WorkoutModel
 
 });
+
 milers.Views.WorkoutView = Backbone.View.extend({
   tagName: "tr",
   className: "wkout",
-  template: _.template($("#workoutTemplate").html()),
+  readTemplate: _.template($("#workoutTemplate").html()),
+  editTemplate: _.template($("#workoutEditTemplate").html()),
+  template: "",
 
   events:{
-    'click .delete': 'deleteWorkout'
+    'click .delete': 'deleteWorkout',
+    'click .edit': 'editWorkout',
+    'click .update' : 'onUpdate',
+    'click .cancel' : 'onCancel'
   },
 
   initialize: function () {
     //this.model.on('destroy', this.remove, this);
+    this.template = this.readTemplate;
   },
 
   render: function () {
     var data =  this.model.toJSON();
     data.title = this.model.getTitle();
+    data.edit = true;
+    data.add = false;
     this.$el.html(this.template(data));
     return this;
   },
+  editWorkout:function(){
+    this.template = this.editTemplate;
+    this.render();
+  },
   deleteWorkout:function(){
-    //console.log("delete");
     this.model.destroy();
     this.remove();
+  },
+  onUpdate : function(){
+    this.model.set({
+      location: this.$el.find('input[name="location"]').val(),
+      date: this.$el.find('input[name="date"]').val(),
+      time: this.$el.find('input[name="time"]').val(),
+      distance: this.$el.find('input[name="distance"]').val()
+    });
+    if (!this.model.isValid()) {
+      console.log(this.model.get("time") + " - " + this.model.validationError);
+    }else{
+      this.template = this.readTemplate;
+      this.render();
+    }
+  },
+  onCancel:function(){
+    this.template = this.readTemplate;
+    this.render();
   }
 
 });
@@ -95,30 +125,41 @@ milers.Views.LogView = Backbone.View.extend({
 
 milers.Views.AddWorkoutView = Backbone.View.extend({
   el: '#addworkout',
+  template: _.template($("#workoutEditTemplate").html()),
   events: {
-    'click #submit' : 'onSubmit'
+    'click .add' : 'onSubmit'
+
   },
 
   initialize: function () {
 
   },
   render: function () {
-
+    data = {
+      title : "Add New Workout",
+      location : "",
+      date: "",
+      time:"",
+      distance:"",
+      add:true,
+      edit:false
+    };
+    this.$el.html(this.template(data));
+    return this;
   },
   onSubmit : function(){
     var model = new milers.Models.WorkoutModel({
-      location: $('input[name="location"]').val(),
-      date: $('input[name="date"]').val(),
-      time: $('input[name="time"]').val(),
-      distance: $('input[name="distance"]').val()
+      location: this.$el.find('input[name="location"]').val(),
+      date: this.$el.find('input[name="date"]').val(),
+      time: this.$el.find('input[name="time"]').val(),
+      distance: this.$el.find('input[name="distance"]').val()
     });
     if (!model.isValid()) {
       console.log(model.get("time") + " - " + model.validationError);
     }else{
       this.collection.add(model);
+      this.render();
     }
-
-
   }
 });
 
