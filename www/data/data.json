@@ -1,38 +1,6 @@
 [
-  {
-    "location": "Clifton Park",
-    "date": "2013-06-10",
-    "time": 1450,
-    "distance": 3.1
-  },
-  {
-    "location": "Upper West Side",
-    "date": "2013-06-15",
-    "time": 1636,
-    "distance": 3.9
-  },
-  {
-    "location": "Central Park",
-    "date": "2013-06-17",
-    "time": 3600,
-    "distance": 6.0
-  },
-  {
-    "location": "Riverside Park",
-    "date": "2013-06-19",
-    "time": 6000,
-    "distance": 10.0
-  },
-  {
-   "location": "Central Park",
-   "date": "2013-06-21",
-   "time": 2400,
-   "distance": 4.0
-  },
-  {
-    "location": "Prospect Park",
-    "date": "2013-07-05",
-    "time": 1500,
-    "distance": 3.0
-  }
+  {"location": "Clifton Park", "date": "2013-06-21", "time": "20:00", "milliseconds": 1200000, "distance": "2.2"},
+  {"location": "Saratog", "date": "2013-07-14", "time": "18:36", "milliseconds": 1116000, "distance": "3.1"},
+  {"location": "Central Park", "date": "2013-07-05", "time": "41:00", "milliseconds": 2460000, "distance": "4.3"},
+  {"location": "Riverside Drive", "date": "2013-07-11", "time": "00:38:22","milliseconds": 2302000, "distance": "3.9"}
 ]

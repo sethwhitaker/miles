@@ -10,7 +10,9 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
+    <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/vendor/jquery-ui-1.10.3.custom.min.css">
     <link rel="stylesheet" href="css/styles.css">
 
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
@@ -29,16 +31,16 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">Log</a></li>
+              <li class=""><a href="#">Routes</a></li>
+              <li class=""><a href="#">Analytics</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li class="nav-header">Workout Actions</li>
-                  <li><a href="#">Add Workout</a></li>
-                  <li><a href="#">Edit Workout</a></li>
+                  <li><a href="#" class="nav-add-workout">Add Workout</a></li>
                   <li class="divider"></li>
                   <li class="nav-header">Routes</li>
                   <li><a href="#">Add Route</a></li>
-                  <li><a href="#">Edit Route</a></li>
                   <li><a href="#">View Routes</a></li>
                 </ul>
               </li>
@@ -62,33 +64,26 @@
         <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
       </div> -->
 
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="span12">
-          <h1>Workouts</h1>
-          <div id="main">
+      <div id="main">
 
-            <table class="table table-striped table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Location</th>
-                  <th>Date</th>
-                  <th>Time</th>
-                  <th>Distance</th>
-                  <th>Actions</th>
-                </tr>
-                <tr id="addworkout">
-
-                </tr>
-              </thead>
-              <tbody id="log">
-
-              </tbody>
-            </table>
-
+        <div class="row">
+          <div class="span12">
+            <h2>Workout Log</h2>
           </div>
         </div>
+        <div class="row">
+          <div class="span8">
+            <section class="" id="log"></section>
+          </div>
+          <div class="span4">
+            <aside id="add-workout-container">
+              <div id="addworkout"></div>
+              <a href="#" class="cancel-add-workout">Cancel</a>
+            </aside>
+          </div>
+        </div>
+
+
       </div>
 
       <hr>
@@ -100,44 +95,86 @@
     </div> <!-- /container -->
 
 
-    <script id="workoutEditTemplate" type="text/template">
-      <td><%=title%></td>
-      <td><input type="text" value="<%= (location)? location : "" %>" placeholder="Location" name="location"></td>
-      <td><input type="text" value="<%= (date)? date : "" %>" placeholder="Date" name="date"></td>
-      <td><input type="text" value="<%= (time)? time: "" %>" placeholder="Time" name="time"></td>
-      <td><input type="text" value="<%= (distance)? distance : "" %>" placeholder="Distance" name="distance"></td>
-      <td>
-        <% if(add == true){ %>
-          <button class="add">Add</button>
-        <%}%>
-        <% if(edit == true){  %>
-          <button class="update">Update</button>
-          <button class="cancel">Cancel</button>
-        <% } %>
-      </td>
-
-    </script>
     <script id="workoutTemplate" type="text/template">
-
-        <td><a href="#"><%= title %> </a></td>
-        <td><%= location %></td>
-        <td><%= date %></td>
-        <td><%= time %></td>
-        <td><%= distance %></td>
-        <td><a class="edit" href="#">Edit</a> | <a class="delete" href="#">Delete</a></td>
-
+      <h4><a href="#"><%= title %></a></h4>
+      <div class="run-stats">
+        <span class="distance"><%= distance %> mi</span> /
+        <span class="time"><%= time %></span>
+        (<span class="pace"><%= pace %></span> pace)
+      </div>
+      <div class="run-info">
+        <p><span class="date"><%= date %></p>
+        <p><span class="location"><i class="icon-map-marker"></i> <%= location %></span></p>
+      </div>
+      <div class="workout-actions">
+        <a href="#" class="edit"><i class="icon-pencil"></i> Edit</a>
+        <a href="#" class="delete"><i class="icon-remove"></i> Delete</a>
+      </div>
     </script>
 
 
+    <script id="workoutEditTemplate" type="text/template">
+
+        <form action="" class="form" id="editForm">
+          <%=title%>
+          <input type="text" value="<%= (location)? location : "" %>" placeholder="Location" name="location"/>
+          <input type="date" value="<%= (date)? date : "" %>" placeholder="Date" name="date"/>
+          <input type="text" value="<%= (time)? time: "" %>" placeholder="Time H:MM:SS" name="time"/>
+          <input type="number" step="0.1" value="<%= (distance)? distance : "" %>" placeholder="Distance (mi)" name="distance"/>
+          <input class="update btn" name="submit" type="submit" value="Save"/>
+          <a href="#" class="cancel">Cancel</a>
+
+        </form>
+
+    </script>
+
+    <script id="workoutAddTemplate" type="text/template">
+        <h3>Add A Workout</h3>
+
+        <form class="form" id="addForm">
+          <div class="control-group">
+            <label class="control-label" for="location">Location</label>
+            <div class="controls">
+              <input type="text" placeholder="Location" name="location" class="input-block-level" id="location" required/>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="date">Date</label>
+            <div class="controls">
+               <input type="date" placeholder="Date" name="date" class="input-block-level" id="date" required/>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="time">Time</label>
+            <div class="controls">
+              <input type="text" pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" placeholder="Time (HH:MM:SS)" name="time" class="input-block-level" id="time" required/>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="distance">Distance</label>
+            <div class="controls">
+               <input type="number" step="0.1" placeholder="Distance (mi)" name="distance" class="input-block-level" id="distance" required/>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="controls">
+              <input class="add btn btn-primary" name="submit" type="submit" value="Add"/>
+            </div>
+          </div>
+
+        </form>
 
 
+    </script>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 
-    <script src="js/vendor/underscore/underscore.js"></script>
-    <script src="js/vendor/backbone/backbone.js"></script>
+    <script src="js/vendor/underscore/underscore.min.js"></script>
+    <script src="js/vendor/backbone/backbone.min.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
+    <!-- <script src="js/vendor/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script> -->
+    <script src="js/vendor/moment.min.js"></script>
 
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>

@@ -1,4 +1,18 @@
 /*-- Application stylesheets. -----------------------------------------------*/
+body { background-color: #eee; }
 @media screen and (min-width: 980px) { body { padding-top: 60px; } }
 
-table input { width: 100%; box-sizing: border-box; }
+input { max-width: 100%; }
+
+#main { display: none; }
+
+.workout, aside { background-color: white; margin: 15px 0; padding: 15px; -webkit-border-radius: 6px; -moz-border-radius: 6px; -ms-border-radius: 6px; -o-border-radius: 6px; border-radius: 6px; -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); }
+
+.workout { overflow: hidden; }
+.workout h4 { display: inline; }
+.workout .run-stats { float: right; }
+.workout .run-stats span { font-weight: bold; }
+.workout .run-stats span.time { margin-left: 10px; }
+.workout .run-stats span.distance { margin-right: 10px; }
+.workout .run-stats span.pace { font-weight: normal; }
+.workout .workout-actions { float: right; }
