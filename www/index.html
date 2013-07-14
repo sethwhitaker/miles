@@ -6,13 +6,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Milers</title>
+    <title>Miler</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/vendor/jquery-ui-1.10.3.custom.min.css">
+    <!-- <link rel="stylesheet" href="css/vendor/jquery-ui-1.10.3.custom.min.css"> -->
     <link rel="stylesheet" href="css/styles.css">
 
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
@@ -27,17 +27,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">MILERS</a>
+          <a class="brand" href="#">MILER</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Log</a></li>
+              <li class="active"><a href="#">Home</a></li>
+              <li class=""><a href="#">List</a></li>
               <li class=""><a href="#">Routes</a></li>
               <li class=""><a href="#">Analytics</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li class="nav-header">Workout Actions</li>
-                  <li><a href="#" class="nav-add-workout">Add Workout</a></li>
+                  <li><a href="#" class="add-workout-link">Add Workout</a></li>
                   <li class="divider"></li>
                   <li class="nav-header">Routes</li>
                   <li><a href="#">Add Route</a></li>
@@ -45,11 +46,11 @@
                 </ul>
               </li>
             </ul>
-            <form class="navbar-form pull-right">
+            <!-- <form class="navbar-form pull-right">
               <input class="span2" type="text" placeholder="Email">
               <input class="span2" type="password" placeholder="Password">
               <button type="submit" class="btn">Sign in</button>
-            </form>
+            </form> -->
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -57,28 +58,33 @@
 
     <div class="container">
 
-      <!-- Main hero unit for a primary marketing message or call to action -->
-       <!--  <div class="hero-unit">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-      </div> -->
-
       <div id="main">
 
         <div class="row">
-          <div class="span12">
+          <div class="span8">
             <h2>Workout Log</h2>
           </div>
         </div>
+
         <div class="row">
           <div class="span8">
-            <section class="" id="log"></section>
+            <section>
+              <div class="panel add-workout-container">
+                <h4>
+                  <a href="#" class="add-workout-link"><i class="icon-plus"></i> Add A Workout</a>
+                </h4>
+                <div class="add-workout">
+                  <div id="addworkout"></div>
+                  <a href="#" class="cancel-add-workout">Cancel</a>
+                </div>
+              </div>
+            </section>
+            <section id="log"></section>
           </div>
           <div class="span4">
-            <aside id="add-workout-container">
-              <div id="addworkout"></div>
-              <a href="#" class="cancel-add-workout">Cancel</a>
+            <aside class="sidebar panel">
+              <h4><i class="icon-signal"></i> Workout Stats</h4>
+              <div id="workout-stats"></div>
             </aside>
           </div>
         </div>
@@ -93,7 +99,6 @@
       </footer>
 
     </div> <!-- /container -->
-
 
     <script id="workoutTemplate" type="text/template">
       <h4><a href="#"><%= title %></a></h4>
@@ -112,60 +117,59 @@
       </div>
     </script>
 
-
     <script id="workoutEditTemplate" type="text/template">
+      <form class="form" id="workoutForm">
+        <% if(add == false){ %>
+          <h4><%=title%></h4>
+        <% } %>
 
-        <form action="" class="form" id="editForm">
-          <%=title%>
-          <input type="text" value="<%= (location)? location : "" %>" placeholder="Location" name="location"/>
-          <input type="date" value="<%= (date)? date : "" %>" placeholder="Date" name="date"/>
-          <input type="text" value="<%= (time)? time: "" %>" placeholder="Time H:MM:SS" name="time"/>
-          <input type="number" step="0.1" value="<%= (distance)? distance : "" %>" placeholder="Distance (mi)" name="distance"/>
-          <input class="update btn" name="submit" type="submit" value="Save"/>
-          <a href="#" class="cancel">Cancel</a>
-
-        </form>
-
-    </script>
-
-    <script id="workoutAddTemplate" type="text/template">
-        <h3>Add A Workout</h3>
-
-        <form class="form" id="addForm">
-          <div class="control-group">
-            <label class="control-label" for="location">Location</label>
-            <div class="controls">
-              <input type="text" placeholder="Location" name="location" class="input-block-level" id="location" required/>
-            </div>
+        <div class="control-group">
+          <label class="control-label" for="location">Location</label>
+          <div class="controls">
+            <input type="text"  value="<%= (location)? location : "" %>" placeholder="Location" name="location" class="input-block-level" id="location" required/>
           </div>
-          <div class="control-group">
-            <label class="control-label" for="date">Date</label>
-            <div class="controls">
-               <input type="date" placeholder="Date" name="date" class="input-block-level" id="date" required/>
-            </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="date">Date</label>
+          <div class="controls">
+             <input type="date" value="<%= (date)? date : "" %>" placeholder="Date" name="date" class="input-block-level" id="date" required/>
           </div>
-          <div class="control-group">
-            <label class="control-label" for="time">Time</label>
-            <div class="controls">
-              <input type="text" pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" placeholder="Time (HH:MM:SS)" name="time" class="input-block-level" id="time" required/>
-            </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="time">Time</label>
+          <div class="controls">
+            <input type="text" value="<%= (time)? time: "" %>" pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" placeholder="Time (HH:MM:SS)" name="time" class="input-block-level" id="time" required/>
           </div>
-          <div class="control-group">
-            <label class="control-label" for="distance">Distance</label>
-            <div class="controls">
-               <input type="number" step="0.1" placeholder="Distance (mi)" name="distance" class="input-block-level" id="distance" required/>
-            </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="distance">Distance</label>
+          <div class="controls">
+             <input type="number" step="0.1" value="<%= (distance)? distance : "" %>" placeholder="Distance (mi)" name="distance" class="input-block-level" id="distance" required/>
           </div>
-          <div class="control-group">
-            <div class="controls">
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <% if(add == true){ %>
               <input class="add btn btn-primary" name="submit" type="submit" value="Add"/>
-            </div>
+            <% }else { %>
+              <input class="update btn btn-primary" name="submit" type="submit" value="Save"/>
+              <a href="#" class="cancel">Cancel</a>
+            <% } %>
           </div>
-
-        </form>
-
-
+        </div>
+      </form>
     </script>
+
+    <script id="workoutStatsTemplate" type="text/template">
+      <h5>Number of Runs</h5><p><%= totalWorkouts %></p>
+      <h5>Total Distance</h5><p><%= totalDistance %> mi</p>
+      <h5>Average Distance</h5><p><%= avgDistance %> mi</p>
+      <h5>Total Time</h5><p><%= totalTime %> min</p>
+      <h5>Average Time</h5><p><%= avgTime %> min</p>
+      <h5>Average Pace</h5><p><%= avgPace %> (per mi)</p>
+    </script>
+
+
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
