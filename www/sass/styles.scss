@@ -1,11 +1,16 @@
 /*-- Application stylesheets. -----------------------------------------------*/
 @import "compass";
-
+@import url(http://fonts.googleapis.com/css?family=Coming+Soon);
+@import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);
+//1. font-family: 'Coming Soon', cursive;
+//2. font-family: 'Gloria Hallelujah', cursive;
 body{
-  background-color: #eee;
+  background: #eee url(../img/furley_bg.jpg) 0 0 repeat;
   @media screen and (min-width:980px){
     padding-top:60px;
   }
+
+
 }
 input {
    max-width: 100%;
@@ -13,20 +18,42 @@ input {
 #main{
   display:none;
 }
+
+a.brand,
+h2.page-title{
+  font-family: 'Coming Soon', cursive;
+}
+a.brand img{
+  margin-right:7px;
+}
 .add-workout-container{
   .add-workout{
     display: none;
-  }
-  h4{
-    margin: 0;
   }
 }
 .panel{
   background-color:white;
   margin:15px 0;
-  padding:15px;
+  overflow: hidden;
   @include border-radius(6px);
   @include box-shadow(0 1px 2px rgba(0,0,0,0.3));
+
+  .panel-header{
+    padding:15px;
+    border-bottom: 1px solid #eee;
+    background: transparent url(../img/tiny_grid.png) 0 0 repeat;
+    h4{
+      margin: 0;
+    }
+  }
+  .panel-body{
+    padding:15px;
+  }
+  .panel-footer{
+    overflow: hidden;
+    border-top:1px solid #eee;
+    padding:10px 15px;
+  }
 }
 
 h4{
@@ -43,6 +70,7 @@ h4{
     color:rgba(0,100,0,0.8);
   }
 }
+
 .workout {
   overflow: hidden;
   h4{
@@ -63,8 +91,10 @@ h4{
       }
     }
   }
-
   .workout-actions{
     float:right;
   }
 }
+
+
+

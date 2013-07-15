@@ -1,4 +1,4 @@
-window.miler = {
+window.miles = {
 
   app: _.extend({}, Backbone.Events),
 
@@ -8,13 +8,13 @@ window.miler = {
   Routers: {},
 
   init: function() {
-    new miler.Views.ApplicationView({el: '#main'});
-    //new miler.Routers.MainRouter();
+    new miles.Views.ApplicationView({el: '#main'});
+    //new miles.Routers.MainRouter();
     //Backbone.history.start({pushState: true});
   }
 };
 
-miler.util={
+miles.util={
   getFormValues:function(el){
     var formData =  {
       location: el.find('input[name="location"]').val(),
@@ -112,7 +112,7 @@ miler.util={
   }
 };
 
-miler.Models.WorkoutModel = Backbone.Model.extend({
+miles.Models.WorkoutModel = Backbone.Model.extend({
 
   idAttribute: '_id',
 
@@ -140,7 +140,7 @@ miler.Models.WorkoutModel = Backbone.Model.extend({
     });
   },
   getTitle: function(){
-    return this.get("location") + " "+ this.get("distance") + " miler";
+    return this.get("location") + " "+ this.get("distance") + " miles";
   },
   validate: function(attrs, options) {
     /*console.log(attrs);
@@ -158,12 +158,12 @@ miler.Models.WorkoutModel = Backbone.Model.extend({
   }
 });
 
-miler.Collections.WorkoutsCollection = Backbone.Collection.extend({
+miles.Collections.WorkoutsCollection = Backbone.Collection.extend({
   url: '../data/data.json',
-  model: miler.Models.WorkoutModel
+  model: miles.Models.WorkoutModel
 });
 
-miler.Views.WorkoutView = Backbone.View.extend({
+miles.Views.WorkoutView = Backbone.View.extend({
   tagName: "div",
   className: "workout panel",
   readTemplate: _.template($("#workoutTemplate").html()),
@@ -185,7 +185,7 @@ miler.Views.WorkoutView = Backbone.View.extend({
   render: function () {
     var data =  this.model.toJSON();
     data.title = this.model.getTitle();
-    data.pace = miler.util.getPace(data.milliseconds, data.distance);
+    data.pace = miles.util.getPace(data.milliseconds, data.distance);
     data.add = false;
     this.$el.html(this.template(data));
     return this;
@@ -202,20 +202,20 @@ miler.Views.WorkoutView = Backbone.View.extend({
     this.$el.css('backgroundColor','rgba(255,0,0,0.5)').fadeOut('slow',function(){
       _this.model.destroy();
       _this.remove();
-      miler.app.trigger('workoutDeleted', this.collection);
+      miles.app.trigger('workoutDeleted', this.collection);
 
     });
   },
   onUpdate : function(e){
     e.preventDefault();
-    var data = miler.util.getFormValues(this.$el);
+    var data = miles.util.getFormValues(this.$el);
     this.model.set(this.model.set(data));
     if (!this.model.isValid()) {
       console.log(this.model.get("time") + " - " + this.model.validationError);
     }else{
       this.template = this.readTemplate;
       this.render();
-      miler.app.trigger('workoutUpdated', this.collection);
+      miles.app.trigger('workoutUpdated', this.collection);
     }
   },
   onCancel:function(e){
@@ -225,7 +225,7 @@ miler.Views.WorkoutView = Backbone.View.extend({
   }
 });
 
-miler.Views.LogView = Backbone.View.extend({
+miles.Views.LogView = Backbone.View.extend({
 
   el: '#log',
 
@@ -242,14 +242,14 @@ miler.Views.LogView = Backbone.View.extend({
     return this;
   },
   addOne : function(model){
-    var view = new miler.Views.WorkoutView({model: model, collection:this.collection});
+    var view = new miles.Views.WorkoutView({model: model, collection:this.collection});
     this.$el.prepend(view.render().el);
-     miler.app.trigger('workoutAdded', this.collection);
+     miles.app.trigger('workoutAdded', this.collection);
 
   }
 });
 
-miler.Views.AddWorkoutView = Backbone.View.extend({
+miles.Views.AddWorkoutView = Backbone.View.extend({
   el: '#addworkout',
   template: _.template($("#workoutEditTemplate").html()),
   events: {
@@ -271,8 +271,8 @@ miler.Views.AddWorkoutView = Backbone.View.extend({
   },
   onSubmit : function(e){
     e.preventDefault();
-    var data = miler.util.getFormValues(this.$el),
-    model = new miler.Models.WorkoutModel(data);
+    var data = miles.util.getFormValues(this.$el),
+    model = new miles.Models.WorkoutModel(data);
 
     if (!model.isValid()) {
       console.log(model.get("time") + " - " + model.validationError);
@@ -284,13 +284,13 @@ miler.Views.AddWorkoutView = Backbone.View.extend({
   }
 });
 
-miler.Views.StatsView = Backbone.View.extend({
+miles.Views.StatsView = Backbone.View.extend({
   el: '#workout-stats',
   template: _.template($("#workoutStatsTemplate").html()),
   initialize:function(){
-    miler.app.on('workoutAdded', this.render, this);
-    miler.app.on('workoutUpdated', this.render, this);
-    miler.app.on('workoutDeleted', this.render, this);
+    miles.app.on('workoutAdded', this.render, this);
+    miles.app.on('workoutUpdated', this.render, this);
+    miles.app.on('workoutDeleted', this.render, this);
     this.render();
   },
   // getTotalWorkouts : function(){
@@ -315,30 +315,30 @@ miler.Views.StatsView = Backbone.View.extend({
   //   return time;
   // },
   // getTotalTimeFormatted : function(){
-  //   return miler.util.convertToHMS(
-  //     miler.util.convertToSeconds(this.getTotalTime())
+  //   return miles.util.convertToHMS(
+  //     miles.util.convertToSeconds(this.getTotalTime())
   //   );
   // },
   // getAverageTime : function(){
   //   var avg = this.getTotalTime()/this.getTotalWorkouts(),
-  //   sec = miler.util.convertToSeconds(avg),
-  //   avgFormatted = miler.util.convertToHMS(sec);
+  //   sec = miles.util.convertToSeconds(avg),
+  //   avgFormatted = miles.util.convertToHMS(sec);
   //   return avgFormatted;
   // },
   // getAveragePace : function(){
   //   var time = this.getTotalTime();
   //   var miles = this.getTotalDistance();
-  //   var pace = miler.util.getPace(time, miles);
+  //   var pace = miles.util.getPace(time, miles);
   //   return pace;
   // },
   updateStats: function(){
     var stats = {
-      totalWorkouts : miler.util.getTotalWorkouts(this.collection),
-      totalDistance : miler.util.getTotalDistance(this.collection),
-      totalTime : miler.util.getTotalTimeFormatted(this.collection),
-      avgDistance : miler.util.getAveragDistance(this.collection),
-      avgTime : miler.util.getAverageTime(this.collection),
-      avgPace : miler.util.getAveragePace(this.collection)
+      totalWorkouts : miles.util.getTotalWorkouts(this.collection),
+      totalDistance : miles.util.getTotalDistance(this.collection),
+      totalTime : miles.util.getTotalTimeFormatted(this.collection),
+      avgDistance : miles.util.getAveragDistance(this.collection),
+      avgTime : miles.util.getAverageTime(this.collection),
+      avgPace : miles.util.getAveragePace(this.collection)
     };
     return stats;
   },
@@ -349,13 +349,13 @@ miler.Views.StatsView = Backbone.View.extend({
   }
 });
 
-miler.Views.ApplicationView = Backbone.View.extend({
+miles.Views.ApplicationView = Backbone.View.extend({
 
   views: {},
 
   initialize: function () {
 
-    this.collection = new miler.Collections.WorkoutsCollection();
+    this.collection = new miles.Collections.WorkoutsCollection();
     this.collection.on('sync', this.createViews, this);
 
     this.collection.fetch();
@@ -373,7 +373,7 @@ miler.Views.ApplicationView = Backbone.View.extend({
   },
   createViews: function () {
 
-    var V = miler.Views,
+    var V = miles.Views,
       opts = {collection: this.collection};
 
     // Only create the views on the initial fetch
@@ -393,7 +393,7 @@ miler.Views.ApplicationView = Backbone.View.extend({
 
 });
 
-/* miler.Routers.MainRouter = Backbone.Router.extend({
+/* miles.Routers.MainRouter = Backbone.Router.extend({
 
   routes: {
     "list":                 "list"   // #help
@@ -407,5 +407,5 @@ miler.Views.ApplicationView = Backbone.View.extend({
 }); */
 
 $(document).ready(function(){
-  miler.init();
+  miles.init();
 });
