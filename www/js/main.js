@@ -67,47 +67,9 @@ miles.util={
     }
     return ms;
   },
-  getTotalWorkouts : function(collection){
-    return collection.length;
-  },
-  getTotalDistance : function(collection){
-    var dist = 0;
-    _.each(collection.pluck("distance"), function(item){
-      dist = dist + item;
-    });
-    return Math.round(dist*10)/10;
-  },
-  getTotalTime : function(collection){
-    var time = 0;
-    _.each(collection.pluck("milliseconds"), function(item){
-      time = time + item;
-    });
-    return time;
-  },
-  getTotalTimeFormatted : function(collection){
-    return this.convertToHMS(
-      this.convertToSeconds(this.getTotalTime(collection))
-    );
-  },
-  getAveragDistance : function(collection){
-    var avg = this.getTotalDistance(collection)/this.getTotalWorkouts(collection);
-    return Math.round(avg*10)/10;
-  },
-  getAverageTime : function(collection){
-    var avg = this.getTotalTime(collection)/this.getTotalWorkouts(collection),
-    sec = this.convertToSeconds(avg),
-    avgFormatted = this.convertToHMS(sec);
-    return avgFormatted;
-  },
-  getPace:function(time, miles){
-    var sec =  this.convertToSeconds(time)/miles; //seconds/mile
+  getPace : function(time, dist){
+    var sec =  this.convertToSeconds(time)/dist; //seconds/mile
     pace = this.convertToHMS(sec);
-    return pace;
-  },
-  getAveragePace : function(collection){
-    var time = this.getTotalTime(collection);
-    var miles = this.getTotalDistance(collection);
-    var pace = this.getPace(time, miles);
     return pace;
   }
 };
@@ -160,7 +122,56 @@ miles.Models.WorkoutModel = Backbone.Model.extend({
 
 miles.Collections.WorkoutsCollection = Backbone.Collection.extend({
   url: '../data/data.json',
-  model: miles.Models.WorkoutModel
+  model: miles.Models.WorkoutModel,
+  getTotalWorkouts : function(){
+    return this.length;
+  },
+  getTotalDistance : function(){
+    var dist = 0;
+    _.each(this.pluck("distance"), function(item){
+      dist = dist + item;
+    });
+    return Math.round(dist*10)/10;
+  },
+  getAveragDistance : function(){
+    var avg = this.getTotalDistance()/this.getTotalWorkouts();
+    return Math.round(avg*10)/10;
+  },
+  getTotalTime : function(){
+    var time = 0;
+    _.each(this.pluck("milliseconds"), function(item){
+      time = time + item;
+    });
+    return time;
+  },
+  getTotalTimeFormatted : function(){
+    return miles.util.convertToHMS(
+      miles.util.convertToSeconds(this.getTotalTime())
+    );
+  },
+  getAverageTime : function(){
+    var avg = this.getTotalTime()/this.getTotalWorkouts(),
+    sec = miles.util.convertToSeconds(avg),
+    avgFormatted = miles.util.convertToHMS(sec);
+    return avgFormatted;
+  },
+  getAveragePace : function(){
+    var time = this.getTotalTime(),
+    dist = this.getTotalDistance(),
+    pace = miles.util.getPace(time, dist);
+    return pace;
+  },
+  getStats: function(){
+    var stats = {
+      "totalWorkouts" : this.getTotalWorkouts(),
+      "totalDistance" : this.getTotalDistance(),
+      "totalTime"     : this.getTotalTimeFormatted(),
+      "avgDistance"   : this.getAveragDistance(),
+      "avgTime"       : this.getAverageTime(),
+      "avgPace"       : this.getAveragePace()
+    };
+    return stats;
+  }
 });
 
 miles.Views.WorkoutView = Backbone.View.extend({
@@ -202,7 +213,6 @@ miles.Views.WorkoutView = Backbone.View.extend({
     this.$el.css('backgroundColor','rgba(255,0,0,0.5)').fadeOut('slow',function(){
       _this.model.destroy();
       _this.remove();
-      miles.app.trigger('workoutDeleted', this.collection);
 
     });
   },
@@ -215,7 +225,6 @@ miles.Views.WorkoutView = Backbone.View.extend({
     }else{
       this.template = this.readTemplate;
       this.render();
-      miles.app.trigger('workoutUpdated', this.collection);
     }
   },
   onCancel:function(e){
@@ -244,8 +253,6 @@ miles.Views.LogView = Backbone.View.extend({
   addOne : function(model){
     var view = new miles.Views.WorkoutView({model: model, collection:this.collection});
     this.$el.prepend(view.render().el);
-     miles.app.trigger('workoutAdded', this.collection);
-
   }
 });
 
@@ -288,62 +295,13 @@ miles.Views.StatsView = Backbone.View.extend({
   el: '#workout-stats',
   template: _.template($("#workoutStatsTemplate").html()),
   initialize:function(){
-    miles.app.on('workoutAdded', this.render, this);
-    miles.app.on('workoutUpdated', this.render, this);
-    miles.app.on('workoutDeleted', this.render, this);
+    this.collection.on('add', this.render, this);
+    this.collection.on('remove', this.render, this);
+    this.collection.on('change', this.render, this);
     this.render();
   },
-  // getTotalWorkouts : function(){
-  //   return this.collection.length;
-  // },
-  // getTotalDistance : function(){
-  //   var dist = 0;
-  //   _.each(this.collection.pluck("distance"), function(item){
-  //     dist = dist + item;
-  //   });
-  //   return Math.round(dist*10)/10;
-  // },
-  // getAveragDistance : function(){
-  //   var avg = this.getTotalDistance()/this.getTotalWorkouts();
-  //   return Math.round(avg*10)/10;
-  // },
-  // getTotalTime : function(){
-  //   var time = 0;
-  //   _.each(this.collection.pluck("milliseconds"), function(item){
-  //     time = time + item;
-  //   });
-  //   return time;
-  // },
-  // getTotalTimeFormatted : function(){
-  //   return miles.util.convertToHMS(
-  //     miles.util.convertToSeconds(this.getTotalTime())
-  //   );
-  // },
-  // getAverageTime : function(){
-  //   var avg = this.getTotalTime()/this.getTotalWorkouts(),
-  //   sec = miles.util.convertToSeconds(avg),
-  //   avgFormatted = miles.util.convertToHMS(sec);
-  //   return avgFormatted;
-  // },
-  // getAveragePace : function(){
-  //   var time = this.getTotalTime();
-  //   var miles = this.getTotalDistance();
-  //   var pace = miles.util.getPace(time, miles);
-  //   return pace;
-  // },
-  updateStats: function(){
-    var stats = {
-      totalWorkouts : miles.util.getTotalWorkouts(this.collection),
-      totalDistance : miles.util.getTotalDistance(this.collection),
-      totalTime : miles.util.getTotalTimeFormatted(this.collection),
-      avgDistance : miles.util.getAveragDistance(this.collection),
-      avgTime : miles.util.getAverageTime(this.collection),
-      avgPace : miles.util.getAveragePace(this.collection)
-    };
-    return stats;
-  },
   render : function (){
-    var data = this.updateStats();
+    var data = this.collection.getStats();
     this.$el.html(this.template(data));
     return this;
   }
