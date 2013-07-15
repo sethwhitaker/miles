@@ -102,7 +102,7 @@ miles.Models.WorkoutModel = Backbone.Model.extend({
     });
   },
   getTitle: function(){
-    return this.get("location") + " "+ this.get("distance") + " miles";
+    return this.get("location") + " "+ this.get("distance") + " miler";
   },
   validate: function(attrs, options) {
     /*console.log(attrs);
@@ -180,19 +180,16 @@ miles.Views.WorkoutView = Backbone.View.extend({
   readTemplate: _.template($("#workoutTemplate").html()),
   editTemplate: _.template($("#workoutEditTemplate").html()),
   template: "",
-
   events:{
     'click .delete' : 'deleteWorkout',
     'click .edit'   : 'editWorkout',
     'click .cancel' : 'onCancel',
-    'submit #workoutForm' : 'onUpdate',
+    'submit #workoutForm' : 'onUpdate'
   },
-
   initialize: function () {
     //this.model.on('destroy', this.remove, this);
     this.template = this.readTemplate;
   },
-
   render: function () {
     var data =  this.model.toJSON();
     data.title = this.model.getTitle();
@@ -318,16 +315,16 @@ miles.Views.ApplicationView = Backbone.View.extend({
 
     this.collection.fetch();
 
-    $('.add-workout-link').on('click', this.showAddForm);
-    $('.cancel-add-workout').on('click', this.hideAddForm);
+    $('.add-workout-link').on('click', this.toggleAddForm);
+    $('.cancel-add-workout').on('click', this.toggleAddForm);
   },
-  showAddForm : function(e){
+  toggleAddForm : function(e){
     e.preventDefault();
-    $(".add-workout-container .add-workout").slideDown();
-  },
-  hideAddForm : function(e){
-    e.preventDefault();
-    $(".add-workout-container .add-workout").slideUp();
+    $(".add-workout-container .add-workout").slideToggle('slow',function(){
+      var $icon = $(this).parent().find('.add-workout-link > i');
+      $icon.toggleClass('icon-plus');
+      $icon.toggleClass('icon-minus');
+    });
   },
   createViews: function () {
 

@@ -16,9 +16,9 @@ a.brand img { margin-right: 7px; }
 
 .panel { background-color: white; margin: 15px 0; overflow: hidden; -webkit-border-radius: 6px; -moz-border-radius: 6px; -ms-border-radius: 6px; -o-border-radius: 6px; border-radius: 6px; -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); }
 .panel .panel-header { padding: 15px; border-bottom: 1px solid #eeeeee; background: transparent url(../img/tiny_grid.png) 0 0 repeat; }
-.panel .panel-header h4 { margin: 0; }
+.panel .panel-header h4 { margin: 0; font-family: "Coming Soon", cursive; }
 .panel .panel-body { padding: 15px; }
-.panel .panel-footer { overflow: hidden; border-top: 1px solid #eeeeee; padding: 10px 15px; }
+.panel .panel-footer { border-top: 1px solid #eeeeee; padding: 10px 15px; overflow: hidden; }
 
 h4 [class^="icon-"], h4 [class*=" icon-"] { margin-top: 3px; }
 

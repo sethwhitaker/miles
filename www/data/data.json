@@ -26,5 +26,33 @@
     "time": "00:38:22",
     "milliseconds": 2302000,
     "distance": 3.9
+  },
+  {
+    "location": "Hudson Greenway",
+    "date": "2013-06-21",
+    "time": "20:00",
+    "milliseconds": 1200000,
+    "distance": 2.2
+  },
+  {
+    "location": "Saratoga Park",
+    "date": "2013-07-04",
+    "time": "18:36",
+    "milliseconds": 1116000,
+    "distance": 3.1
+  },
+  {
+    "location": "Central Park",
+    "date": "2013-07-05",
+    "time": "41:00",
+    "milliseconds": 2460000,
+    "distance": 4.3
+  },
+  {
+    "location": "Riverside Drive",
+    "date": "2013-07-13",
+    "time": "00:38:22",
+    "milliseconds": 2302000,
+    "distance": 3.9
   }
 ]

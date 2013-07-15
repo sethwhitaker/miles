@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Miles</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -27,7 +27,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#"><img src="img/logo-nav.png" width="30" height="18" alt="logo"/>Miles</a>
+          <a class="brand" href="/"><img src="img/logo-nav.png" width="30" height="18" alt="logo"/>Miles</a>
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
               <li class="active"><a href="#">Home</a></li>
@@ -109,8 +109,53 @@
 
     </div> <!-- /container -->
 
+
     <script id="workoutTemplate" type="text/template">
-      <div class="panel-body">
+
+      <div class="row">
+        <div class="span8">
+          <div class="panel-header">
+            <h4><a href="#"><%= title %></a></h4>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span8">
+          <div class="panel-body">
+
+              <div class="run-stats">
+                <p>
+                  <span class="distance"><%= distance %> mi</span> /
+                  <span class="time"><%= time %></span>
+                  (<span class="pace"><%= pace %></span> pace)
+                </p>
+              </div>
+
+              <div class="run-info">
+                <p><span class="date"><%= date %></p>
+                <p><span class="location"><i class="icon-map-marker"></i> <%= location %></span></p>
+              </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span8">
+          <div class="panel-footer">
+            <div class="workout-actions">
+              <a href="#" class="edit"><i class="icon-pencil"></i> Edit</a> |
+              <a href="#" class="delete"><i class="icon-remove"></i> Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <!--<div class="panel-body">
         <h4><a href="#"><%= title %></a></h4>
         <div class="run-stats">
           <span class="distance"><%= distance %> mi</span> /
@@ -127,7 +172,7 @@
           <a href="#" class="edit"><i class="icon-pencil"></i> Edit</a> |
           <a href="#" class="delete"><i class="icon-remove"></i> Delete</a>
         </div>
-      </div>
+      </div>-->
     </script>
 
     <script id="workoutEditTemplate" type="text/template">

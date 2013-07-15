@@ -44,15 +44,16 @@ a.brand img{
     background: transparent url(../img/tiny_grid.png) 0 0 repeat;
     h4{
       margin: 0;
+      font-family: 'Coming Soon', cursive;
     }
   }
   .panel-body{
     padding:15px;
   }
   .panel-footer{
-    overflow: hidden;
     border-top:1px solid #eee;
     padding:10px 15px;
+    overflow: hidden;
   }
 }
 
@@ -90,6 +91,9 @@ h4{
         font-weight: normal;
       }
     }
+  }
+  .run-info{
+
   }
   .workout-actions{
     float:right;
