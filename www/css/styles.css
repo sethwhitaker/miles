@@ -33,3 +33,8 @@ h4 [class^="icon-"], h4 [class*=" icon-"] { margin-top: 3px; }
 .workout .run-stats span.distance { margin-right: 10px; }
 .workout .run-stats span.pace { font-weight: normal; }
 .workout .workout-actions { float: right; }
+
+.sidebar { margin-bottom: 0; }
+.sidebar.affix { top: 50px; }
+@media screen and (max-width: 767px) { .sidebar.affix { position: relative; top: 0; } }
+@media (min-width: 768px) and (max-width: 979px) { .sidebar.affix { top: 10px; } }

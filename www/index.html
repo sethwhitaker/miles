@@ -30,15 +30,15 @@
           <a class="brand" href="/"><img src="img/logo-nav.png" width="30" height="18" alt="logo"/>Miles</a>
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
-              <li class="active"><a href="#">Home</a></li>
-              <li class=""><a href="#">List</a></li>
-              <li class=""><a href="#">Routes</a></li>
-              <li class=""><a href="#">Analytics</a></li>
+              <li class="active"><a href="/">Home</a></li>
+             <!--  <li class=""><a href="#">List</a></li>
+              <li class=""><a href="#">Paths</a></li>
+              <li class=""><a href="#">Stats</a></li> -->
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li class="nav-header">Workout Actions</li>
-                  <li><a href="#" class="add-workout-link">Add Workout</a></li>
+                  <li><a href="#" class="add-workout-link">Add a Run</a></li>
                   <li class="divider"></li>
                   <li class="nav-header">Routes</li>
                   <li><a href="#">Add Route</a></li>
@@ -65,7 +65,7 @@
 
         <div class="row">
           <div class="span8">
-            <h2 class="page-title">Workout Log</h2>
+            <h2 class="page-title">Recent Runs</h2>
           </div>
         </div>
 
@@ -75,7 +75,7 @@
               <div class="panel add-workout-container">
                 <div class="panel-header">
                   <h4>
-                    <a href="#" class="add-workout-link"><i class="icon-plus"></i> Add A Workout</a>
+                    <a href="#" class="add-workout-link"><i class="icon-plus"></i> Add a Run</a>
                   </h4>
                 </div>
                 <div class="panel-body add-workout">
@@ -87,9 +87,9 @@
             <section id="log"></section>
           </div>
           <div class="span4">
-            <aside class="sidebar panel">
+            <aside class="sidebar panel span4" data-spy="affix" data-offset-top="80">
               <div class="panel-header">
-                <h4><i class="icon-signal"></i> Workout Stats</h4>
+                <h4><i class="icon-signal"></i> Run Stats</h4>
               </div>
               <div class="panel-body">
                 <div id="workout-stats"></div>
@@ -228,8 +228,8 @@
       <h5>Number of Runs</h5><p><%= totalWorkouts %></p>
       <h5>Total Distance</h5><p><%= totalDistance %> mi</p>
       <h5>Average Distance</h5><p><%= avgDistance %> mi</p>
-      <h5>Total Time</h5><p><%= totalTime %> min</p>
-      <h5>Average Time</h5><p><%= avgTime %> min</p>
+      <h5>Total Time</h5><p><%= totalTime %></p>
+      <h5>Average Time</h5><p><%= avgTime %></p>
       <h5>Average Pace</h5><p><%= avgPace %> (per mi)</p>
     </script>
 

@@ -99,6 +99,21 @@ h4{
     float:right;
   }
 }
+.sidebar{
+  margin-bottom:0;
+  &.affix{
+    top:50px;
+    @media screen and (max-width: 767px) {
+      position: relative;
+      top:0;
 
+    }
+    @media (min-width: 768px) and (max-width:979px)  {
+      top:10px;
+    }
+  }
+
+
+}
 
 
