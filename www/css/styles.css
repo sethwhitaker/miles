@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Coming+Soon);
 @import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);
 /*-- Application stylesheets. -----------------------------------------------*/
-body { background: #eeeeee url(../img/furley_bg.jpg) 0 0 repeat; }
+body { background: #eeeeee url(../img/furley_bg.jpg) 0 0 repeat; position: relative; }
 @media screen and (min-width: 980px) { body { padding-top: 60px; } }
 
 input { max-width: 100%; }
@@ -38,3 +38,5 @@ h4 [class^="icon-"], h4 [class*=" icon-"] { margin-top: 3px; }
 .sidebar.affix { top: 50px; }
 @media screen and (max-width: 767px) { .sidebar.affix { position: relative; top: 0; } }
 @media (min-width: 768px) and (max-width: 979px) { .sidebar.affix { top: 10px; } }
+.sidebar.affix-bottom { bottom: 85px; position: absolute; }
+@media screen and (max-width: 767px) { .sidebar.affix-bottom { position: relative; top: 0; } }
