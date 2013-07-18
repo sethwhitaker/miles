@@ -14,8 +14,9 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="css/vendor/jquery-ui-1.10.3.custom.min.css"> -->
     <link rel="stylesheet" href="css/styles.css">
-
-    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    <script src="js/libs/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script data-main="js/main" src="js/libs/require.js"></script>
   </head>
   <body>
 
@@ -109,144 +110,8 @@
 
     </div> <!-- /container -->
 
-
-    <script id="workoutTemplate" type="text/template">
-
-      <div class="row">
-        <div class="span8">
-          <div class="panel-header">
-            <h4><a href="#"><%= title %></a></h4>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="span8">
-          <div class="panel-body">
-
-              <div class="run-stats">
-                <p>
-                  <span class="distance"><%= distance %> mi</span> /
-                  <span class="time"><%= time %></span>
-                  (<span class="pace"><%= pace %></span> pace)
-                </p>
-              </div>
-
-              <div class="run-info">
-                <p><span class="date"><%= date %></p>
-                <p><span class="location"><i class="icon-map-marker"></i> <%= location %></span></p>
-              </div>
-
-
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="span8">
-          <div class="panel-footer">
-            <div class="workout-actions">
-              <a href="#" class="edit"><i class="icon-pencil"></i> Edit</a> |
-              <a href="#" class="delete"><i class="icon-remove"></i> Delete</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-
-      <!--<div class="panel-body">
-        <h4><a href="#"><%= title %></a></h4>
-        <div class="run-stats">
-          <span class="distance"><%= distance %> mi</span> /
-          <span class="time"><%= time %></span>
-          (<span class="pace"><%= pace %></span> pace)
-        </div>
-        <div class="run-info">
-          <p><span class="date"><%= date %></p>
-          <p><span class="location"><i class="icon-map-marker"></i> <%= location %></span></p>
-        </div>
-      </div>
-      <div class="panel-footer">
-        <div class="workout-actions">
-          <a href="#" class="edit"><i class="icon-pencil"></i> Edit</a> |
-          <a href="#" class="delete"><i class="icon-remove"></i> Delete</a>
-        </div>
-      </div>-->
-    </script>
-
-    <script id="workoutEditTemplate" type="text/template">
-      <% if(add == false){ %>
-      <div class="panel-body">
-      <% } %>
-        <form class="form" id="workoutForm">
-          <% if(add == false){ %>
-            <h4><%=title%></h4>
-          <% } %>
-
-          <div class="control-group">
-            <label class="control-label" for="location">Location</label>
-            <div class="controls">
-              <input type="text"  value="<%= (location)? location : "" %>" placeholder="Location" name="location" class="input-block-level" id="location" required/>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="date">Date</label>
-            <div class="controls">
-               <input type="date" value="<%= (date)? date : "" %>" placeholder="Date" name="date" class="input-block-level" id="date" required/>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="time">Time</label>
-            <div class="controls">
-              <input type="text" value="<%= (time)? time: "" %>" pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" placeholder="Time (HH:MM:SS)" name="time" class="input-block-level" id="time" required/>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="distance">Distance</label>
-            <div class="controls">
-               <input type="number" step="0.1" value="<%= (distance)? distance : "" %>" placeholder="Distance (mi)" name="distance" class="input-block-level" id="distance" required/>
-            </div>
-          </div>
-          <div class="control-group">
-            <div class="controls">
-              <% if(add == true){ %>
-                <input class="add btn btn-primary" name="submit" type="submit" value="Add"/>
-              <% }else { %>
-                <input class="update btn btn-primary" name="submit" type="submit" value="Save"/>
-                <a href="#" class="cancel">Cancel</a>
-              <% } %>
-            </div>
-          </div>
-        </form>
-      <% if(add == false){ %>
-      </div>
-      <% } %>
-    </script>
-
-    <script id="workoutStatsTemplate" type="text/template">
-      <h5>Number of Runs</h5><p><%= totalWorkouts %></p>
-      <h5>Total Distance</h5><p><%= totalDistance %> mi</p>
-      <h5>Average Distance</h5><p><%= avgDistance %> mi</p>
-      <h5>Total Time</h5><p><%= totalTime %></p>
-      <h5>Average Time</h5><p><%= avgTime %></p>
-      <h5>Average Pace</h5><p><%= avgPace %> (per mi)</p>
-    </script>
-
-
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
-
-    <script src="js/vendor/underscore/underscore.min.js"></script>
-    <script src="js/vendor/backbone/backbone.min.js"></script>
-    <script src="js/vendor/bootstrap.min.js"></script>
-    <!-- <script src="js/vendor/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script> -->
-    <script src="js/vendor/moment.min.js"></script>
-
     <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
-
+    
     <script>
       var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
       (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
