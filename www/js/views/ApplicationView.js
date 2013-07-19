@@ -7,28 +7,15 @@ define([
   'views/LogView',
   'views/StatsView'
 ], function($, _, Backbone, WorkoutsCollection, AddWorkoutView, LogView, StatsView ){
-  
+
   var ApplicationView = Backbone.View.extend({
 
     views: {},
 
     initialize: function () {
-
       this.collection = new WorkoutsCollection();
       this.collection.on('sync', this.createViews, this);
-
       this.collection.fetch();
-
-      $('.add-workout-link').on('click', this.toggleAddForm);
-      $('.cancel-add-workout').on('click', this.toggleAddForm);
-    },
-    toggleAddForm : function(e){
-      e.preventDefault();
-      $(".add-workout-container .add-workout").slideToggle('slow',function(){
-        var $icon = $(this).parent().find('.add-workout-link > i');
-        $icon.toggleClass('icon-plus');
-        $icon.toggleClass('icon-minus');
-      });
     },
     createViews: function () {
 

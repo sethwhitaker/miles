@@ -4,44 +4,45 @@ define([
   'backbone',
   'models/WorkoutModel',
   'collections/WorkoutsCollection',
-  'text!templates/WorkoutTemplate.html',
-  'text!templates/WorkoutEditTemplate.html',
-  'utils/miles.utils'
-], function($, _, Backbone, WorkoutModel, WorkoutsCollection, WorkoutTemplate, WorkoutEditTemplate, milesUtil){
-
+  'views/WorkoutFormView',
+  'text!templates/AddWorkoutTemplate.html',
+  'utils/miles.utils',
+  'events/Channel'
+], function($, _, Backbone, WorkoutModel, WorkoutsCollection, WorkoutFormView,AddWorkoutTemplate, milesUtil, EventsChannel){
 
   var AddWorkoutView = Backbone.View.extend({
-    el: '#addworkout',
-    template: _.template(WorkoutEditTemplate),
+    el: '#addWorkoutPanel',
+    $drawer :"",
+    template: _.template(AddWorkoutTemplate),
     events: {
-      'submit #workoutForm' : 'onSubmit'
+      'click .add-workout-link' : 'toggleAddForm',
+      'click .cancel-add-workout' : 'toggleAddForm'
     },
     initialize: function () {
       this.render();
+      var view = new WorkoutFormView({
+        el: '#addworkout',
+        collection: this.collection
+      });
+
+      this.$drawer = this.$el.find(".add-workout-container .add-workout");
+
+      EventsChannel.on('formSubmit', this.togglePanel, this);
+    },
+    toggleAddForm : function(e){
+      e.preventDefault();
+      this.togglePanel();
+    },
+    togglePanel:function(){
+      this.$drawer.slideToggle('slow',function(){
+        var $icon = $(this).parent().find('.add-workout-link > i');
+        $icon.toggleClass('icon-plus');
+        $icon.toggleClass('icon-minus');
+      });
     },
     render: function () {
-      this.$el.html(this.template({
-        title: "",
-        location : "",
-        date: "",
-        time:"",
-        distance:"",
-        add:true
-      }));
+      this.$el.html(this.template());
       return this;
-    },
-    onSubmit : function(e){
-      e.preventDefault();
-      var data = milesUtil.getFormValues(this.$el),
-      model = new WorkoutModel(data);
-
-      if (!model.isValid()) {
-        console.log(model.get("time") + " - " + model.validationError);
-      }else{
-        this.collection.add(model);
-        this.render();
-        $(".add-workout-container .add-workout").slideUp();
-      }
     }
   });
   return AddWorkoutView;

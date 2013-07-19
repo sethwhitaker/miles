@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="css/vendor/jquery-ui-1.10.3.custom.min.css"> -->
     <link rel="stylesheet" href="css/styles.css">
-        
+
     <script src="js/libs/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     <script data-main="js/main" src="js/libs/require.js"></script>
   </head>
@@ -32,10 +32,11 @@
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
               <li class="active"><a href="/">Home</a></li>
-             <!--  <li class=""><a href="#">List</a></li>
+              <li class=""><a href="#">List</a></li>
               <li class=""><a href="#">Paths</a></li>
-              <li class=""><a href="#">Stats</a></li> -->
-              <li class="dropdown">
+              <li class=""><a href="#">Stats</a></li>
+
+              <!-- <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li class="nav-header">Workout Actions</li>
@@ -45,7 +46,7 @@
                   <li><a href="#">Add Route</a></li>
                   <li><a href="#">View Routes</a></li>
                 </ul>
-              </li>
+              </li> -->
 
              <!--  <li>
                 <form class="navbar-form">
@@ -72,19 +73,7 @@
 
         <div class="row">
           <div class="span8">
-            <section>
-              <div class="panel add-workout-container">
-                <div class="panel-header">
-                  <h4>
-                    <a href="#" class="add-workout-link"><i class="icon-plus"></i> Add a Run</a>
-                  </h4>
-                </div>
-                <div class="panel-body add-workout">
-                  <div id="addworkout"></div>
-                  <a href="#" class="cancel-add-workout">Cancel</a>
-                </div>
-              </div>
-            </section>
+            <section id="addWorkoutPanel"></section>
             <section id="log"></section>
           </div>
           <div class="span4">
@@ -111,7 +100,7 @@
     </div> <!-- /container -->
 
     <script src="js/plugins.js"></script>
-    
+
     <script>
       var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
       (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
