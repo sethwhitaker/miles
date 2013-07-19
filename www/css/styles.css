@@ -37,6 +37,5 @@ h4 [class^="icon-"], h4 [class*=" icon-"] { margin-top: 3px; }
 .sidebar { margin-bottom: 0; }
 .sidebar.affix { top: 50px; }
 @media screen and (max-width: 767px) { .sidebar.affix { position: relative; top: 0; } }
-@media (min-width: 768px) and (max-width: 979px) { .sidebar.affix { top: 10px; } }
 .sidebar.affix-bottom { bottom: 85px; position: absolute; }
 @media screen and (max-width: 767px) { .sidebar.affix-bottom { position: relative; top: 0; } }
