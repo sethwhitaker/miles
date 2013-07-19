@@ -5,9 +5,9 @@ define([
   'collections/WorkoutsCollection',
   'text!templates/WorkoutTemplate.html',
   'text!templates/WorkoutEditTemplate.html',
-  'miles.utils'
+  'utils/miles.utils'
 ], function($, _, Backbone, WorkoutsCollection, WorkoutTemplate, WorkoutEditTemplate, milesUtil){
-  
+
   var WorkoutView = Backbone.View.extend({
     tagName: "div",
     className: "workout panel",

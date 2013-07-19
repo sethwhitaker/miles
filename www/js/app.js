@@ -1,9 +1,9 @@
 // Filename: app.js
 define([
-  'jquery', 
-  'underscore', 
+  'jquery',
+  'underscore',
   'backbone',
-  'router', // Request router.js
+  'routers/router', // Request router.js
   'views/ApplicationView',
   'bootstrap',
   'moment'
@@ -14,7 +14,7 @@ define([
     Router.initialize();
   };
 
-  return { 
+  return {
     initialize: initialize
   };
 });

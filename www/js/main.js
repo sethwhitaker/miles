@@ -1,6 +1,6 @@
 'use strict';
 
-  /** 
+  /**
     * RequireJS config and shim
     * @see http://requirejs.org/docs/api.html#config
     *
@@ -17,24 +17,23 @@ requirejs.config({
   //enforceDefine: true,
 
     // @see http://requirejs.org/docs/api.html#pathsfallbacks
-  // If the CDN location fails, load from local location
-
-  // @TODO - work with local copies in development, and uncomment the CDN hosted when you go live
-  paths: {
+   paths: {
     'jquery': 'libs/jquery.min',
     'backbone': 'libs/backbone.min',
     'underscore': 'libs/underscore.min',
     'bootstrap': 'libs/bootstrap.min',
+    'text': 'libs/text',
     'moment': 'libs/moment.min',
     'templates': '../templates'
     //'twix': 'libs/twix.min',
     //'jquery-ui': 'libs/jquery-ui.min',
   },
+
   // @see http://requirejs.org/docs/api.html#config-shim
   shim: {
     'jquery': {
       exports: '$'
-    },    
+    },
     'underscore': {
       exports: '_'
     },
@@ -42,13 +41,13 @@ requirejs.config({
       deps: ['jquery', 'underscore'],
       exports: 'Backbone'
     },
-    'bootstrap':  ["jquery"],   
-    'moment':  ['jquery'] 
-    //'twix':  ['jquery']   
+    'bootstrap':  ["jquery"],
+    'moment':  ['jquery']
+    //'twix':  ['jquery']
     // 'jquery-ui': {
     //   deps: ['jquery'],
     //   exports: '$.ui',
-    // }    
+    // }
   }
 });
 

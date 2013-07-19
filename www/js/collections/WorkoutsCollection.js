@@ -2,13 +2,13 @@ define([
   'underscore',
   'backbone',
   'models/WorkoutModel',
-  'miles.utils'
+  'utils/miles.utils'
 ], function(_, Backbone, WorkoutModel, milesUtil){
 
   var WorkoutsCollection = Backbone.Collection.extend({
       url: '../data/data.json',
       model: WorkoutModel,
-      //initialize : function(models, options) {},      
+      //initialize : function(models, options) {},
       getTotalWorkouts : function(){
         return this.length;
       },
@@ -58,7 +58,7 @@ define([
         };
         return stats;
       }
-      
+
       // url : function() {
       //   return 'https://api.github.com/repos/thomasdavis/backbonetutorials/contributors';
       // },
@@ -66,8 +66,8 @@ define([
       //     var uniqueArray = this.removeDuplicates(data.data);
       //     return uniqueArray;
       // },
-      
-     
+
+
   });
 
   return WorkoutsCollection;
