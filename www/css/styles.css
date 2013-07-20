@@ -2,7 +2,7 @@
 @import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);
 /*-- Application stylesheets. -----------------------------------------------*/
 body { background: #eeeeee url(../img/furley_bg.jpg) 0 0 repeat; position: relative; }
-@media screen and (min-width: 980px) { body { padding-top: 60px; } }
+@media screen and (min-width: 768px) { body { padding-top: 60px; } }
 
 input { max-width: 100%; }
 

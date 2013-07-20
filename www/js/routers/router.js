@@ -3,49 +3,50 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  //'views/home/HomeView',
-  //'views/projects/ProjectsView',
-  //'views/contributors/ContributorsView',
+  'views/IndexView',
+  'views/ListPageView',
   //'views/footer/FooterView'
 //], function($, _, Backbone, HomeView, ProjectsView, ContributorsView, FooterView) {
-], function($, _, Backbone) {
-  
+], function($, _, Backbone, IndexView, ListPageView) {
+
   var AppRouter = Backbone.Router.extend({
     routes: {
       // Define some URL routes
-     // 'projects': 'showProjects',
-      //'users': 'showContributors',
-      
+      'list': 'showListPage',
+      'home': 'showHomePage',
+
       // Default
-     // '*actions': 'defaultAction'
+      '*actions': 'defaultAction'
     }
   });
-  
+
   var initialize = function(){
 
     var app_router = new AppRouter;
-    
-    // app_router.on('route:showProjects', function(){
-   
-    //     // Call render on the module we loaded in via the dependency array
-    //     var projectsView = new ProjectsView();
-    //     projectsView.render();
 
-    // });
+    app_router.on('route:showListPage', function(){
 
-    // app_router.on('route:showContributors', function () {
-    
-    //     // Like above, call render but know that this view has nested sub views which 
-    //     // handle loading and displaying data from the GitHub API  
-    //     var contributorsView = new ContributorsView();
-    // });
+        // Call render on the module we loaded in via the dependency array
+        var listPageView = new ListPageView();
+        listPageView.render();
 
-    // app_router.on('route:defaultAction', function (actions) {
-     
-    //    // We have no matching route, lets display the home page 
-    //     var homeView = new HomeView();
-    //     homeView.render();
-    // });
+    });
+
+    app_router.on('route:showHomePage', function(){
+
+        // Call render on the module we loaded in via the dependency array
+       var indexView = new IndexView();
+        indexView.render();
+
+    });
+
+
+    app_router.on('route:defaultAction', function (actions) {
+      console.log("index");
+       // We have no matching route, lets display the home page
+        var indexView = new IndexView();
+        indexView.render();
+    });
 
     // Unlike the above, we don't call render on this view as it will handle
     // the render call internally after it loads data. Further more we load it
@@ -55,7 +56,7 @@ define([
 
     Backbone.history.start();
   };
-  return { 
+  return {
     initialize: initialize
   };
 });

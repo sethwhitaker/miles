@@ -10,7 +10,7 @@ define([
 ], function($, _, Backbone, Router, ApplicationView){
   var initialize = function(){
     // Pass in our Router module and call it's initialize function
-    new ApplicationView({el: '#main'});
+    // new ApplicationView({el: '#main'});
     Router.initialize();
   };
 
