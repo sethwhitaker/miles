@@ -4,7 +4,7 @@ define([
   'underscore',
   'backbone',
   'views/IndexView',
-  'views/ListPageView',
+  'views/ListPageView'
   //'views/footer/FooterView'
 //], function($, _, Backbone, HomeView, ProjectsView, ContributorsView, FooterView) {
 ], function($, _, Backbone, IndexView, ListPageView) {

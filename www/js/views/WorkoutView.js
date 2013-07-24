@@ -21,8 +21,12 @@ define([
       'submit #workoutForm' : 'onUpdate'
     },
     initialize: function () {
-      //this.model.on('destroy', this.remove, this);
       this.template = this.readTemplate;
+      this.model.on('destroy', this.remove, this);
+      this.model.on('change', this.render, this);
+      this.on('edit', this.render, this);
+      this.on('cancelEdit', this.render, this);
+      this.on('update', this.render, this);
     },
     render: function () {
       var data =  this.model.toJSON();
@@ -32,36 +36,34 @@ define([
       this.$el.html(this.template(data));
       return this;
     },
-
     editWorkout:function(e){
       e.preventDefault();
       this.template = this.editTemplate;
-      this.render();
+      this.trigger('edit');
     },
     deleteWorkout:function(e){
       e.preventDefault();
       var _this = this;
       this.$el.css('backgroundColor','rgba(255,0,0,0.5)').fadeOut('slow',function(){
         _this.model.destroy();
-        _this.remove();
-
       });
     },
     onUpdate : function(e){
       e.preventDefault();
       var data = milesUtil.getFormValues(this.$el);
-      this.model.set(this.model.set(data));
-      if (!this.model.isValid()) {
-        console.log(this.model.get("time") + " - " + this.model.validationError);
-      }else{
+      this.model.set(data);
+      if (this.model.isValid()) {
         this.template = this.readTemplate;
-        this.render();
+        this.trigger('update');
+      }else{
+        console.log(this.model.get("time") + " - " + this.model.validationError);
+        this.template = this.editTemplate;
       }
     },
     onCancel:function(e){
       e.preventDefault();
       this.template = this.readTemplate;
-      this.render();
+      this.trigger('cancelEdit');
     }
   });
   return WorkoutView;
