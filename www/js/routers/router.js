@@ -22,30 +22,31 @@ define([
 
   var initialize = function(){
 
+    setView = function(view){
+      if(current_view){
+        current_view.remove();
+      }
+      current_view = new view();
+      $("#main").append(current_view.render().el);
+    };
+
     var app_router = new AppRouter;
+    var current_view;
 
     app_router.on('route:showListPage', function(){
-
         // Call render on the module we loaded in via the dependency array
-        var listPageView = new ListPageView();
-        listPageView.render();
-
+        setView(ListPageView);
     });
 
     app_router.on('route:showHomePage', function(){
-
         // Call render on the module we loaded in via the dependency array
-       var indexView = new IndexView();
-        indexView.render();
-
+        setView(IndexView);
     });
 
-
     app_router.on('route:defaultAction', function (actions) {
-      console.log("index");
+      //console.log("index");
        // We have no matching route, lets display the home page
-        var indexView = new IndexView();
-        indexView.render();
+        setView(IndexView);
     });
 
     // Unlike the above, we don't call render on this view as it will handle

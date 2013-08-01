@@ -1,0 +1,14 @@
+<td><%=title%></td>
+<td><input type="text" value="<%= (location)? location : "" %>" placeholder="Location" name="location"></td>
+<td><input type="text" value="<%= (date)? date : "" %>" placeholder="Date" name="date"></td>
+<td><input type="text" value="<%= (time)? time: "" %>" placeholder="Time" name="time"></td>
+<td><input type="text" value="<%= (distance)? distance : "" %>" placeholder="Distance" name="distance"></td>
+<td>
+  <% if(add == true){ %>
+    <button class="add">Add</button>
+  <%}%>
+  <% if(edit == true){  %>
+    <button class="update">Update</button>
+    <button class="cancel">Cancel</button>
+  <% } %>
+</td>

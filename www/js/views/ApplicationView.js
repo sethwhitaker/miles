@@ -3,10 +3,7 @@ define([
   'underscore',
   'backbone',
   'collections/WorkoutsCollection',
-  'views/AddWorkoutView',
-  'views/LogView',
-  'views/StatsView'
-], function($, _, Backbone, WorkoutsCollection, AddWorkoutView, LogView, StatsView ){
+], function($, _, Backbone, WorkoutsCollection ){
 
   var ApplicationView = Backbone.View.extend({
 
@@ -26,15 +23,21 @@ define([
 
       // Storing references to the views in case we want
       // to do something with them later.
-      this.views.addWorkoutView = (new AddWorkoutView(opts));
-      this.views.workoutlog = (new LogView(opts));
-      this.views.workoutStats = (new StatsView(opts));
+
       this.render();
     },
     render: function () {
-      this.$el.fadeIn('slow');
-      return this;
+      // this.$el.fadeIn('slow');
+      // return this;
     }
+    setView: function(view){
+      if(current_view){
+        current_view.remove();
+      }
+      current_view = new view();
+      $("#main").append(current_view.render().el);
+    };
+
 
   });
 

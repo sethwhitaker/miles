@@ -4,11 +4,12 @@ define([
   'underscore',
   'backbone',
   'routers/router', // Request router.js
+  'views/ApplicationView',
   'bootstrap',
-], function($, _, Backbone, Router){
+], function($, _, Backbone, Router, ApplicationView){
   var initialize = function(){
     // Pass in our Router module and call it's initialize function
-    // new ApplicationView({el: '#main'});
+    new ApplicationView();
     Router.initialize();
   };
 

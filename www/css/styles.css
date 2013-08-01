@@ -6,8 +6,6 @@ body { background: #eeeeee url(../img/furley_bg.jpg) 0 0 repeat; position: relat
 
 input { max-width: 100%; }
 
-#main { display: none; }
-
 a.brand, h2.page-title { font-family: "Coming Soon", cursive; }
 
 a.brand img { margin-right: 7px; }

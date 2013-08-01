@@ -10,7 +10,8 @@ define([
 ], function($, _, Backbone,  WorkoutsCollection, AddWorkoutView, LogView, StatsView , IndexTemplate ){
 
   var IndexView = Backbone.View.extend({
-    el: $("#main"),
+    //el: $("#main"),
+
     template : _.template(IndexTemplate),
 
     initialize: function () {
@@ -19,8 +20,7 @@ define([
       this.collection.fetch();
     },
     render: function () {
-
-      this.$el.html(this.template).fadeIn('slow');
+      this.$el.html(this.template);
       this.createViews();
       return this;
     },
@@ -36,8 +36,8 @@ define([
       this.workoutlog = new LogView(opts);
       this.workoutStats = new StatsView(opts);
 
-      this.$('#addWorkoutPanel').append(this.addWorkoutView.el)
-        .append(this.innerView2.el);
+      this.$('#addWorkoutPanel').append(this.addWorkoutView.el);
+      // this.$('#addWorkoutPanel').append(this.addWorkoutView.el).append(this.innerView2.el);
 
       $('aside.sidebar').affix({
         'offset-top': '80',
