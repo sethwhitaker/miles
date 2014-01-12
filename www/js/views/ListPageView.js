@@ -3,8 +3,10 @@ define([
   'underscore',
   'backbone',
   'text!/templates/ListPageTemplate.html',
-  'views/ApplicationView'
-], function($, _, Backbone, ListPageTemplate, ApplicationView ){
+  'views/ApplicationView',
+  'views/LogView',
+  'collections/WorkoutsCollection'
+], function($, _, Backbone, ListPageTemplate, ApplicationView, LogView, WorkoutsCollection ){
 
   var ListPageView = Backbone.View.extend({
     //el: $("#main"),

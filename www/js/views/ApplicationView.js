@@ -2,7 +2,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'collections/WorkoutsCollection',
+  'collections/WorkoutsCollection'
 ], function($, _, Backbone, WorkoutsCollection ){
 
   var ApplicationView = Backbone.View.extend({
@@ -29,14 +29,14 @@ define([
     render: function () {
       // this.$el.fadeIn('slow');
       // return this;
-    }
+    },
     setView: function(view){
       if(current_view){
         current_view.remove();
       }
       current_view = new view();
       $("#main").append(current_view.render().el);
-    };
+    }
 
 
   });
